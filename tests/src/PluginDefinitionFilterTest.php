@@ -7,6 +7,8 @@
 
 namespace EclipseGc\Plugin\Test;
 
+use EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface;
+
 class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
 
   /**
@@ -66,5 +68,38 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
     $new_discovery = $discovery->getFilteredDiscovery([$filter]);
     $this->assertEquals(2, count($new_discovery->getDefinitions()));
     $this->assertEquals(4, count($discovery->getDefinitions()));
+  }
+
+  public function testPluginDefinitionFilterInterfaces() {
+    $definitions = $this->definitions;
+    unset($definitions['plugin_definition_4']);
+    /** @var \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface $discovery */
+    $discovery = $this->getMockForAbstractClass(AbstractPluginDiscovery::class);
+    $reflection = new \ReflectionClass($discovery);
+    $property = $reflection->getProperty('definitions');
+    $property->setAccessible(TRUE);
+    $property->setValue($discovery, array_values($this->definitions));
+    $filter1 = $this->createMock(PluginDefinitionFilterInterface::class);
+    $filter1->method('filter')
+      ->willReturn($definitions);
+    unset($definitions['plugin_definition_2']);
+    $filter2 = $this->createMock(PluginDefinitionFilterInterface::class);
+    $filter2->method('filter')
+      ->willReturn($definitions);
+    $new_discovery = $discovery->getFilteredDiscovery([$filter1]);
+    $this->assertEquals(3, count($new_discovery->getDefinitions()));
+    $expected_definitions = [
+      0 => 'plugin_definition_1',
+      1 => 'plugin_definition_2',
+      2 => 'plugin_definition_3',
+    ];
+    $this->assertEquals($expected_definitions, array_keys($new_discovery->getDefinitions()));
+    $new_discovery = $discovery->getFilteredDiscovery([$filter1, $filter2]);
+    $this->assertEquals(2, count($new_discovery->getDefinitions()));
+    $expected_definitions = [
+      0 => 'plugin_definition_1',
+      1 => 'plugin_definition_3',
+    ];
+    $this->assertEquals($expected_definitions, array_keys($new_discovery->getDefinitions()));
   }
 }
