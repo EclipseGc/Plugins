@@ -33,4 +33,15 @@ interface PluginDiscoveryInterface extends \Iterator {
    */
   public function getDefinition($plugin_id);
 
+  /**
+   * Generates a new discovery object with a filtered list of definitions.
+   *
+   * @param \EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface[] $filters
+   *   The list of filters to apply in order of application.
+   *
+   * @return PluginDiscoveryInterface
+   *   A new instance of the current discovery class with filtered definitions.
+   */
+  public function getFilteredDiscovery(array $filters);
+
 }

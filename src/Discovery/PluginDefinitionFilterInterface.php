@@ -7,13 +7,15 @@
 
 namespace EclipseGc\Plugin\Discovery;
 
-interface PluginDefinitionFilterInterface extends PluginDiscoveryInterface {
+interface PluginDefinitionFilterInterface {
 
   /**
    * Filters available plugins in the plugin discovery object.
    *
-   * @param \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface $pluginDiscovery
+   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions
+   *
+   * @return \EclipseGc\Plugin\PluginDefinitionInterface[]
    */
-  public function filter(PluginDiscoveryInterface $pluginDiscovery);
+  public function filter(array $definitions);
 
 }
