@@ -65,7 +65,7 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
     $property->setValue($discovery, array_values($this->definitions));
     $this->assertEquals(4, count($discovery->getDefinitions()));
     $filter = new EvenPluginDefinitionFilter();
-    $new_discovery = $discovery->getFilteredDiscovery([$filter]);
+    $new_discovery = $discovery->getFilteredDiscovery($filter);
     $this->assertEquals(2, count($new_discovery->getDefinitions()));
     $this->assertEquals(4, count($discovery->getDefinitions()));
   }
@@ -86,7 +86,7 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
     $filter2 = $this->createMock(PluginDefinitionFilterInterface::class);
     $filter2->method('filter')
       ->willReturn($definitions);
-    $new_discovery = $discovery->getFilteredDiscovery([$filter1]);
+    $new_discovery = $discovery->getFilteredDiscovery($filter1);
     $this->assertEquals(3, count($new_discovery->getDefinitions()));
     $expected_definitions = [
       0 => 'plugin_definition_1',
@@ -94,7 +94,7 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
       2 => 'plugin_definition_3',
     ];
     $this->assertEquals($expected_definitions, array_keys($new_discovery->getDefinitions()));
-    $new_discovery = $discovery->getFilteredDiscovery([$filter1, $filter2]);
+    $new_discovery = $discovery->getFilteredDiscovery($filter1, $filter2);
     $this->assertEquals(2, count($new_discovery->getDefinitions()));
     $expected_definitions = [
       0 => 'plugin_definition_1',

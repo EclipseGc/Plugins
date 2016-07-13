@@ -6,6 +6,7 @@
  */
 
 namespace EclipseGc\Plugin\Traits;
+use EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface;
 
 /**
  * @see \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;
@@ -99,10 +100,9 @@ trait PluginDiscoveryTrait {
   /**
    * {@inheritdoc}
    */
-  public function getFilteredDiscovery(array $filters) {
+  public function getFilteredDiscovery(PluginDefinitionFilterInterface ...$filters) {
     $old_definitions = $this->definitions;
     $new_definitions = $this->definitions;
-    /** @var \EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface $filter */
     foreach ($filters as $filter) {
       $new_definitions = $filter->filter($new_definitions);
     }
