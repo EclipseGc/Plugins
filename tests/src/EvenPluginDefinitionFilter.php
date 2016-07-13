@@ -8,15 +8,15 @@
 namespace EclipseGc\Plugin\Test;
 
 use EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface;
+use EclipseGc\Plugin\PluginDefinitionInterface;
 
 class EvenPluginDefinitionFilter implements PluginDefinitionFilterInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function filter(array $definitions) {
+  public function filter(PluginDefinitionInterface ...$definitions) {
     $filtered = [];
-    /** @var \EclipseGc\Plugin\PluginDefinitionInterface $definition */
     foreach ($definitions as $definition) {
       $plugin_id = $definition->getPluginId();
       $pos = strrpos($plugin_id, '_');

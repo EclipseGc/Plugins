@@ -104,7 +104,7 @@ trait PluginDiscoveryTrait {
     $old_definitions = $this->definitions;
     $new_definitions = $this->definitions;
     foreach ($filters as $filter) {
-      $new_definitions = $filter->filter($new_definitions);
+      $new_definitions = $filter->filter(...array_values($new_definitions));
     }
     $this->definitions = $new_definitions;
     $discovery = clone $this;

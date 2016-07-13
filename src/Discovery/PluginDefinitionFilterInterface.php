@@ -7,6 +7,8 @@
 
 namespace EclipseGc\Plugin\Discovery;
 
+use EclipseGc\Plugin\PluginDefinitionInterface;
+
 interface PluginDefinitionFilterInterface {
 
   /**
@@ -16,6 +18,6 @@ interface PluginDefinitionFilterInterface {
    *
    * @return \EclipseGc\Plugin\PluginDefinitionInterface[]
    */
-  public function filter(array $definitions);
+  public function filter(PluginDefinitionInterface ...$definitions);
 
 }
