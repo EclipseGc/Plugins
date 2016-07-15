@@ -100,6 +100,14 @@ trait PluginDiscoveryTrait {
   /**
    * {@inheritdoc}
    */
+  public function hasDefinition($plugin_id) {
+    $definitions = $this->getDefinitions();
+    return !empty($definitions[$plugin_id]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getFilteredDiscovery(PluginDefinitionFilterInterface ...$filters) {
     $old_definitions = $this->definitions;
     $new_definitions = $this->definitions;

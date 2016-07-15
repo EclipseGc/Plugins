@@ -18,6 +18,7 @@ class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
    * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getPluginType
    * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinitions
    * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinition
+   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::hasDefinition
    */
   public function testPluginDiscoveryTrait() {
     $definition_data = [
@@ -101,5 +102,7 @@ class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($keyed_definitions['plugin_definition_1'], $discovery->getDefinition('plugin_definition_1'));
     $this->assertEquals($keyed_definitions['plugin_definition_2'], $discovery->getDefinition('plugin_definition_2'));
     $this->assertEquals($keyed_definitions['plugin_definition_3'], $discovery->getDefinition('plugin_definition_3'));
+    $this->assertEquals(TRUE, $discovery->hasDefinition('plugin_definition_3'));
+    $this->assertEquals(FALSE, $discovery->hasDefinition('plugin_definition_4'));
   }
 }

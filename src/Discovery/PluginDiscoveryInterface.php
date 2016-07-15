@@ -34,6 +34,16 @@ interface PluginDiscoveryInterface extends \Iterator {
   public function getDefinition($plugin_id);
 
   /**
+   * Determines if a particular plugin definition is in this discovery object.
+   *
+   * @param string $plugin_id
+   *   The plugin id.
+   *
+   * @return boolean
+   */
+  public function hasDefinition($plugin_id);
+
+  /**
    * Generates a new discovery object with a filtered list of definitions.
    *
    * @param \EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface[] $filters
