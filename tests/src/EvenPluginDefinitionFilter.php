@@ -7,7 +7,7 @@
 
 namespace EclipseGc\Plugin\Test;
 
-use EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface;
+use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;
 
 class EvenPluginDefinitionFilter implements PluginDefinitionFilterInterface {

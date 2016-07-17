@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \EclipseGc\Plugin\Discovery\PluginDefinitionFilterINterface.
+ * Contains \EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface.
  */
 
-namespace EclipseGc\Plugin\Discovery;
+namespace EclipseGc\Plugin\Filter;
 
 use EclipseGc\Plugin\PluginDefinitionInterface;
 

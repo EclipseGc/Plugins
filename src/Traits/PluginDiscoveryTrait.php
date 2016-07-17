@@ -6,7 +6,7 @@
  */
 
 namespace EclipseGc\Plugin\Traits;
-use EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface;
+use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 
 /**
  * @see \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;

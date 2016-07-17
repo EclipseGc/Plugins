@@ -7,6 +7,8 @@
 
 namespace EclipseGc\Plugin\Discovery;
 
+use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
+
 interface PluginDiscoveryInterface extends \Iterator {
 
   /**
@@ -46,7 +48,7 @@ interface PluginDiscoveryInterface extends \Iterator {
   /**
    * Generates a new discovery object with a filtered list of definitions.
    *
-   * @param \EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface[] $filters
+   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] $filters
    *   The list of filters to apply in order of application.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface A new instance of the current discovery class with filtered definitions.

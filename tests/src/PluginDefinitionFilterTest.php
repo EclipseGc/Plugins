@@ -7,7 +7,7 @@
 
 namespace EclipseGc\Plugin\Test;
 
-use EclipseGc\Plugin\Discovery\PluginDefinitionFilterInterface;
+use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 
 class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
 
