@@ -1,7 +1,9 @@
 language: php
 php:
-  - '5.6'
-  - '7.0'
+    - '5.6'
+    - '7.0'
 install:
-   - composer install
-script: phpunit
+    - composer install
+addons:
+    code_climate:
+        repo_token: 25c2d6ecdd72761fb5790426b899804a9ed5d3aa44f931ee91a9f91c7bccab5f
