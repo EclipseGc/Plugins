@@ -14,10 +14,10 @@ interface PluginDefinitionFilterInterface {
   /**
    * Filters available plugins in the plugin discovery object.
    *
-   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions
+   * @param \EclipseGc\Plugin\PluginDefinitionInterface $definition
    *
-   * @return \EclipseGc\Plugin\PluginDefinitionInterface[]
+   * @return bool
    */
-  public function filter(PluginDefinitionInterface ...$definitions);
+  public function filter(PluginDefinitionInterface $definition);
 
 }

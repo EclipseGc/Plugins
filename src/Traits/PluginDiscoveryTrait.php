@@ -20,6 +20,11 @@ trait PluginDiscoveryTrait {
   protected $plugin_type;
 
   /**
+   * @var \EclipseGc\Plugin\Mutator\PluginDefinitionMutatorInterface[]
+   */
+  protected $mutators = [];
+
+  /**
    * @var \EclipseGc\Plugin\PluginDefinitionInterface[]
    */
   protected $definitions;
@@ -82,6 +87,9 @@ trait PluginDiscoveryTrait {
   public function getDefinitions() {
     if (is_null($this->keyedDefinitions) || count($this->keyedDefinitions) != count($this->definitions)) {
       $this->keyedDefinitions = NULL;
+      foreach ($this->mutators as $mutator) {
+        $this->definitions = $mutator->mutate(...$this->definitions);
+      }
       foreach ($this->definitions as $definition) {
         $this->keyedDefinitions[$definition->getPluginId()] = $definition;
       }
@@ -108,16 +116,12 @@ trait PluginDiscoveryTrait {
   /**
    * {@inheritdoc}
    */
-  public function getFilteredDiscovery(PluginDefinitionFilterInterface ...$filters) {
-    $old_definitions = $this->definitions;
-    $new_definitions = $this->definitions;
+  public function getFilteredDefinitions(PluginDefinitionFilterInterface ...$filters) {
+    $new_definitions = $this->getDefinitions();
     foreach ($filters as $filter) {
-      $new_definitions = $filter->filter(...array_values($new_definitions));
+      $new_definitions = array_filter($new_definitions, [$filter, 'filter']);
     }
-    $this->definitions = $new_definitions;
-    $discovery = clone $this;
-    $this->definitions = $old_definitions;
-    return $discovery;
+    return $new_definitions;
   }
 
 }

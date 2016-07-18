@@ -7,7 +7,7 @@
 
 namespace EclipseGc\Plugin\Test;
 
-use EclipseGc\Plugin\Filter\PluginDefinitionDeriverFilter;
+use EclipseGc\Plugin\Mutator\PluginDefinitionDeriverMutator;
 
 class DerivativePluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
 
@@ -91,16 +91,27 @@ class DerivativePluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
     return $definitions;
   }
 
-  public function testPluginDefinitionDeriverFilter() {
+  public function testPluginDefinitionDeriverMutator() {
     $discovery = $this->getMockForAbstractClass(AbstractPluginDiscovery::class);
     $reflection = new \ReflectionClass($discovery);
-    $property = $reflection->getProperty('definitions');
+    $definitions = $reflection->getProperty('definitions');
+    $definitions->setAccessible(TRUE);
+    $definitions->setValue($discovery, array_values($this->definitions));
+    $mutator = new PluginDefinitionDeriverMutator();
+    $property = $reflection->getProperty('mutators');
     $property->setAccessible(TRUE);
-    $property->setValue($discovery, array_values($this->definitions));
-    $this->assertEquals(4, count($discovery->getDefinitions()));
-    $filter = new PluginDefinitionDeriverFilter();
-    $new_discovery = $discovery->getFilteredDiscovery($filter);
-    $this->assertEquals(5, count($new_discovery->getDefinitions()));
+    $property->setValue($discovery, [$mutator]);
+    $this->assertEquals(5, count($discovery->getDefinitions()));
+    $definition = $discovery->getDefinition('plugin_definition_3:test2');
+    $this->assertEquals('plugin_definition_3:test2', $definition->getPluginId());
+    $this->assertEquals([
+      'key_1' => 'value 7 test2',
+      'key_2' => 'value 8 test2',
+      'key_3' => 'value 9 test2'
+    ], $definition->getProperties());
+    $this->assertEquals('value 7 test2', $definition->getProperty('key_1'));
+    $this->assertEquals('value 8 test2', $definition->getProperty('key_2'));
+    $this->assertEquals('value 9 test2', $definition->getProperty('key_3'));
   }
 
 }

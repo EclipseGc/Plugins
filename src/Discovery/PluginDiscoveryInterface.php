@@ -51,9 +51,9 @@ interface PluginDiscoveryInterface extends \Iterator {
    * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] $filters
    *   The list of filters to apply in order of application.
    *
-   * @return \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface A new instance of the current discovery class with filtered definitions.
-   * A new instance of the current discovery class with filtered definitions.
+   * @return \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[]
+   *   The filtered array of plugin definitions keyed by plugin_id.
    */
-  public function getFilteredDiscovery(PluginDefinitionFilterInterface ...$filters);
+  public function getFilteredDefinitions(PluginDefinitionFilterInterface ...$filters);
 
 }

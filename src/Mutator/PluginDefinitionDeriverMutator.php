@@ -5,27 +5,27 @@
  * Contains \EclipseGc\Plugin\Filter\PluginDefinitionDeriverFilter.
  */
 
-namespace EclipseGc\Plugin\Filter;
+namespace EclipseGc\Plugin\Mutator;
 
 use EclipseGc\Plugin\Derivative\PluginDefinitionDerivativeInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;
 
-class PluginDefinitionDeriverFilter implements PluginDefinitionFilterInterface {
+class PluginDefinitionDeriverMutator implements PluginDefinitionMutatorInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function filter(PluginDefinitionInterface ...$definitions) {
-    $filtered = [];
+  public function mutate(PluginDefinitionInterface ...$definitions) {
+    $results = [];
     foreach ($definitions as $definition) {
       if ($definition instanceof PluginDefinitionDerivativeInterface) {
         $deriver = $definition->getDeriver();
-        $filtered = array_merge($filtered, $deriver->getDerivativeDefinitions($definition));
+        $results = array_merge($results, $deriver->getDerivativeDefinitions($definition));
         continue;
       }
-      $filtered[] = $definition;
+      $results[] = $definition;
     }
-    return $filtered;
+    return $results;
   }
 
 }
