@@ -21,11 +21,9 @@ interface StaticPluginDiscoveryInterface {
    *
    * @param \EclipseGc\Plugin\PluginDefinitionInterface $definition
    *   The definition to add to the iterator.
-   * @param bool $addToKeyedDefinitions
-   *   Whether or not to add the definition to the keyed definitions.
    *
    * @return $this
    */
-  public function addPluginDefinition(PluginDefinitionInterface $definition, $addToKeyedDefinitions = FALSE);
+  public function addPluginDefinition(PluginDefinitionInterface $definition);
 
 }

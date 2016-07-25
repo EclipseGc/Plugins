@@ -23,7 +23,7 @@ class PluginDefinitionDeriverMutator implements PluginDefinitionMutatorInterface
         $results = array_merge($results, $deriver->getDerivativeDefinitions($definition));
         continue;
       }
-      $results[] = $definition;
+      $results[$definition->getPluginId()] = $definition;
     }
     return $results;
   }

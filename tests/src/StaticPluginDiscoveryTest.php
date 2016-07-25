@@ -73,7 +73,7 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
     $reflection = new \ReflectionClass($discovery);
     $property = $reflection->getProperty('definitions');
     $property->setAccessible(TRUE);
-    $property->setValue($discovery, array_values($this->definitions));
+    $property->setValue($discovery, $this->definitions);
     // Ensure we have a known good start point.
     $this->assertEquals($this->definitions, $discovery->getDefinitions());
     // Mock a new definition.
@@ -106,7 +106,7 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
     $reflection = new \ReflectionClass($discovery);
     $property = $reflection->getProperty('definitions');
     $property->setAccessible(TRUE);
-    $property->setValue($discovery, array_values($this->definitions));
+    $property->setValue($discovery, $this->definitions);
     // Mock a new definition.
     /** @var \EclipseGc\Plugin\PluginDefinitionInterface $new_definition */
     $new_definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');

@@ -62,7 +62,7 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
     $reflection = new \ReflectionClass($discovery);
     $property = $reflection->getProperty('definitions');
     $property->setAccessible(TRUE);
-    $property->setValue($discovery, array_values($this->definitions));
+    $property->setValue($discovery, $this->definitions);
     $this->assertEquals(4, count($discovery->getDefinitions()));
     $filter = new EvenPluginDefinitionFilter();
     $filtered_definitions = $discovery->getFilteredDefinitions($filter);
@@ -76,7 +76,7 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
     $reflection = new \ReflectionClass($discovery);
     $property = $reflection->getProperty('definitions');
     $property->setAccessible(TRUE);
-    $property->setValue($discovery, array_values($this->definitions));
+    $property->setValue($discovery, $this->definitions);
     $filter1 = $this->createMock(PluginDefinitionFilterInterface::class);
     // We'll use $filter1 twice, so the returns are input in duplicate.
     $filter1->method('filter')

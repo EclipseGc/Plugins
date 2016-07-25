@@ -30,11 +30,6 @@ trait PluginDiscoveryTrait {
   protected $definitions;
 
   /**
-   * @var \EclipseGc\Plugin\PluginDefinitionInterface[]
-   */
-  protected $keyedDefinitions;
-
-  /**
    * @var int
    */
   protected $pointer = 0;
@@ -43,7 +38,7 @@ trait PluginDiscoveryTrait {
    * {@inheritdoc}
    */
   public function current() {
-    return $this->definitions[$this->pointer];
+    return $this->definitions[array_keys($this->definitions)[$this->pointer]];
   }
 
   /**
@@ -64,7 +59,8 @@ trait PluginDiscoveryTrait {
    * {@inheritdoc}
    */
   public function valid() {
-    return isset($this->definitions[$this->pointer]);
+    $keys = array_keys($this->definitions);
+    return !empty($keys[$this->pointer]);
   }
 
   /**
@@ -85,16 +81,10 @@ trait PluginDiscoveryTrait {
    * {@inheritdoc}
    */
   public function getDefinitions() {
-    if (is_null($this->keyedDefinitions) || count($this->keyedDefinitions) != count($this->definitions)) {
-      $this->keyedDefinitions = NULL;
-      foreach ($this->mutators as $mutator) {
-        $this->definitions = $mutator->mutate(...$this->definitions);
-      }
-      foreach ($this->definitions as $definition) {
-        $this->keyedDefinitions[$definition->getPluginId()] = $definition;
-      }
+    foreach ($this->mutators as $mutator) {
+      $this->definitions = $mutator->mutate(...array_values($this->definitions));
     }
-    return $this->keyedDefinitions;
+    return $this->definitions;
   }
 
   /**

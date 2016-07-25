@@ -17,11 +17,8 @@ class StaticPluginDiscovery implements StaticPluginDiscoveryInterface {
   /**
    * {@inheritdoc}
    */
-  public function addPluginDefinition(PluginDefinitionInterface $definition, $addToKeyedDefinitions = FALSE) {
-    $this->definitions[] = $definition;
-    if ($addToKeyedDefinitions) {
-      $this->keyedDefinitions[$definition->getPluginId()] = $definition;
-    }
+  public function addPluginDefinition(PluginDefinitionInterface $definition) {
+    $this->definitions[$definition->getPluginId()] = $definition;
     return $this;
   }
 

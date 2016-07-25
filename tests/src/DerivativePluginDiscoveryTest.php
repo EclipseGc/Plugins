@@ -86,7 +86,7 @@ class DerivativePluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
       $definition->method('getProperty')
         ->withConsecutive(['key_1'], ['key_2'], ['key_3'])
         ->willReturnOnConsecutiveCalls($item['key_1'], $item['key_2'], $item['key_3']);
-      $definitions[] = $definition;
+      $definitions[$key] = $definition;
     }
     return $definitions;
   }
