@@ -9,7 +9,7 @@ namespace EclipseGc\Plugin\Discovery;
 
 use EclipseGc\Plugin\PluginDefinitionInterface;
 
-interface StaticPluginDiscoveryInterface {
+interface StaticPluginDictionaryInterface {
 
   /**
    * Adds a plugin to the iterator.
@@ -24,6 +24,6 @@ interface StaticPluginDiscoveryInterface {
    *
    * @return $this
    */
-  public function addPluginDefinition(PluginDefinitionInterface $definition);
+  public function addPluginDefinition(PluginDefinitionInterface $definition) : StaticPluginDictionaryInterface ;
 
 }

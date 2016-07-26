@@ -15,7 +15,7 @@ class PluginDefinitionDeriverMutator implements PluginDefinitionMutatorInterface
   /**
    * {@inheritdoc}
    */
-  public function mutate(PluginDefinitionInterface ...$definitions) {
+  public function mutate(PluginDefinitionInterface ...$definitions) : array {
     $results = [];
     foreach ($definitions as $definition) {
       if ($definition instanceof PluginDefinitionDerivativeInterface) {

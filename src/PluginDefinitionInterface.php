@@ -14,7 +14,7 @@ interface PluginDefinitionInterface {
    *
    * @return array
    */
-  public function getProperties();
+  public function getProperties() : array ;
 
   /**
    * Gets the value of a key in the plugin definition.
@@ -31,6 +31,6 @@ interface PluginDefinitionInterface {
    *
    * @return string
    */
-  public function getPluginId();
+  public function getPluginId() : string ;
 
 }

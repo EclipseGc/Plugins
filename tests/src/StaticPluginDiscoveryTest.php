@@ -7,9 +7,14 @@
 
 namespace EclipseGc\Plugin\Test;
 
-use EclipseGc\Plugin\Discovery\StaticPluginDiscovery;
+use EclipseGc\Plugin\Discovery\StaticPluginDictionary;
 
 class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
+
+  /**
+   * @var array
+   */
+  protected $definition_data;
 
   /**
    * @var \EclipseGc\Plugin\PluginDefinitionInterface[]
@@ -21,7 +26,7 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
    */
   protected function setUp() {
     parent::setUp();
-    $definition_data = [
+    $this->definition_data = [
       'plugin_definition_1' => [
         'key_1' => 'value 1',
         'key_2' => 'value 2',
@@ -38,7 +43,7 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
         'key_3' => 'value 9'
       ],
     ];
-    foreach ($definition_data as $key => $item) {
+    foreach ($this->definition_data as $key => $item) {
       $definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
       $definition->method('getPluginId')
         ->willReturn($key);
@@ -55,27 +60,33 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
    * Test definitions manually added to the StaticPluginDiscovery.
    */
   public function testAddingStaticDefinitions() {
-    $discovery = new StaticPluginDiscovery();
-    $discovery->addPluginDefinition($this->definitions['plugin_definition_1'], TRUE);
-    $this->assertEquals(1, count($discovery->getDefinitions()));
-    $discovery->addPluginDefinition($this->definitions['plugin_definition_2'], TRUE);
-    $this->assertEquals(2, count($discovery->getDefinitions()));
-    $discovery->addPluginDefinition($this->definitions['plugin_definition_3'], TRUE);
-    $this->assertEquals(3, count($discovery->getDefinitions()));
-    $this->assertEquals($this->definitions, $discovery->getDefinitions());
+    $dictionary = new StaticPluginDictionary();
+    $discovery = new PluginDiscovery();
+    $reflection = new \ReflectionClass($dictionary);
+    $property = $reflection->getProperty('discovery');
+    $property->setAccessible(TRUE);
+    $property->setValue($dictionary, $discovery);
+    $dictionary->addPluginDefinition($this->definitions['plugin_definition_1'], TRUE);
+    $this->assertEquals(1, count($dictionary->getDefinitions()));
+    $dictionary->addPluginDefinition($this->definitions['plugin_definition_2'], TRUE);
+    $this->assertEquals(2, count($dictionary->getDefinitions()));
+    $dictionary->addPluginDefinition($this->definitions['plugin_definition_3'], TRUE);
+    $this->assertEquals(3, count($dictionary->getDefinitions()));
+    $this->assertEquals($discovery->findPluginImplementations(...array_values($this->definitions)), $dictionary->getDefinitions());
   }
 
   /**
    * Add a new definition to an existing set of definitions.
    */
   public function testAddingStaticDefinitionToExistingDefinitions() {
-    $discovery = new StaticPluginDiscovery();
-    $reflection = new \ReflectionClass($discovery);
-    $property = $reflection->getProperty('definitions');
+    $dictionary = new StaticPluginDictionary();
+    $discovery = new PluginDiscovery($this->definition_data);
+    $reflection = new \ReflectionClass($dictionary);
+    $property = $reflection->getProperty('discovery');
     $property->setAccessible(TRUE);
-    $property->setValue($discovery, $this->definitions);
+    $property->setValue($dictionary, $discovery);
     // Ensure we have a known good start point.
-    $this->assertEquals($this->definitions, $discovery->getDefinitions());
+    $this->assertEquals($discovery->findPluginImplementations(), $dictionary->getDefinitions());
     // Mock a new definition.
     /** @var \EclipseGc\Plugin\PluginDefinitionInterface $new_definition */
     $new_definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
@@ -87,41 +98,11 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
         'key_2' => 'value 11',
         'key_3' => 'value 12'
       ]);
-    $discovery->addPluginDefinition($new_definition);
+    $dictionary->addPluginDefinition($new_definition);
 
     $definitions = $this->definitions;
     $definitions['plugin_definition_4'] = $new_definition;
-    $this->assertEquals($definitions, $discovery->getDefinitions());
+    $this->assertEquals($discovery->findPluginImplementations(...array_values($definitions)), $dictionary->getDefinitions());
   }
 
-  /**
-   * The StaticPluginDiscovery::addPluginDefinition method support expanding
-   * new definitions into the keyedDefinitions array. This can result in
-   * mismatched array lengths that could affect the result of the
-   * PluginDiscoveryInterface::getDefinitions. This tests ensures that the
-   * logic is accounting for this.
-   */
-  public function testGetDefinitionsRecalculation() {
-    $discovery = new StaticPluginDiscovery();
-    $reflection = new \ReflectionClass($discovery);
-    $property = $reflection->getProperty('definitions');
-    $property->setAccessible(TRUE);
-    $property->setValue($discovery, $this->definitions);
-    // Mock a new definition.
-    /** @var \EclipseGc\Plugin\PluginDefinitionInterface $new_definition */
-    $new_definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
-    $new_definition->method('getPluginId')
-      ->willReturn('plugin_definition_4');
-    $new_definition->method('getProperties')
-      ->willReturn([
-        'key_1' => 'value 10',
-        'key_2' => 'value 11',
-        'key_3' => 'value 12'
-      ]);
-    $discovery->addPluginDefinition($new_definition, TRUE);
-
-    $definitions = $this->definitions;
-    $definitions['plugin_definition_4'] = $new_definition;
-    $this->assertEquals($definitions, $discovery->getDefinitions());
-  }
 }

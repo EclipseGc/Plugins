@@ -7,53 +7,24 @@
 
 namespace EclipseGc\Plugin\Discovery;
 
-use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
+use EclipseGc\Plugin\PluginDefinitionInterface;
 
-interface PluginDiscoveryInterface extends \Iterator {
-
-  /**
-   * Gets the string name of the associated plugin type.
-   *
-   * @return string
-   */
-  public function getPluginType();
+interface PluginDiscoveryInterface {
 
   /**
-   * Gets the plugin definitions in this discovery object.
+   * Finds plugins via a particular discovery pattern.
    *
-   * @return \EclipseGc\Plugin\PluginDefinitionInterface[]
+   * Plugin discovery classes can provide a multitude of different options for
+   * finding plugin implementations. This could be implemented via yaml files,
+   * class annotations, php functions or numerous other solutions. Each
+   * discovery class is different and will have different parameters for
+   * finding plugins.
+   *
+   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions
+   *   A list of known definitions to add to the set.
+   *
+   * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
    */
-  public function getDefinitions();
-
-  /**
-   * Gets a particular plugin definition in this discovery object.
-   *
-   * @param string $plugin_id
-   *   The plugin id.
-   *
-   * @return \EclipseGc\Plugin\PluginDefinitionInterface|NULL mixed
-   */
-  public function getDefinition($plugin_id);
-
-  /**
-   * Determines if a particular plugin definition is in this discovery object.
-   *
-   * @param string $plugin_id
-   *   The plugin id.
-   *
-   * @return boolean
-   */
-  public function hasDefinition($plugin_id);
-
-  /**
-   * Generates a new discovery object with a filtered list of definitions.
-   *
-   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] $filters
-   *   The list of filters to apply in order of application.
-   *
-   * @return \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[]
-   *   The filtered array of plugin definitions keyed by plugin_id.
-   */
-  public function getFilteredDefinitions(PluginDefinitionFilterInterface ...$filters);
+  public function findPluginImplementations(PluginDefinitionInterface ...$definitions) : PluginDefinitionSet;
 
 }

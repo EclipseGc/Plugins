@@ -10,17 +10,17 @@ namespace EclipseGc\Plugin;
 interface PluginInterface {
 
   /**
-   * Gets the definition of the plugin.
-   *
-   * @return PluginDefinitionInterface
-   */
-  public function getPluginDefinition();
-
-  /**
    * Gets the name of the plugin.
    *
    * @return string
    */
-  public function getPluginId();
+  public function getPluginId() : string ;
+
+  /**
+   * Gets the definition of the plugin.
+   *
+   * @return PluginDefinitionInterface
+   */
+  public function getPluginDefinition() : PluginDefinitionInterface ;
 
 }

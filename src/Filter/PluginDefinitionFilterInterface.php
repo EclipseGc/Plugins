@@ -18,6 +18,6 @@ interface PluginDefinitionFilterInterface {
    *
    * @return bool
    */
-  public function filter(PluginDefinitionInterface $definition);
+  public function filter(PluginDefinitionInterface $definition) : bool;
 
 }

@@ -9,19 +9,11 @@ namespace EclipseGc\Plugin\Test;
 
 class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
 
-  /**
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::rewind
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::current
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::key
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::next
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::valid
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getPluginType
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinitions
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinition
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::hasDefinition
-   */
-  public function testPluginDiscoveryTrait() {
-    $definition_data = [
+  protected $definition_data;
+
+  protected function setUp() {
+    parent::setUp();
+    $this->definition_data = [
       'plugin_definition_1' => [
         'key_1' => 'value 1',
         'key_2' => 'value 2',
@@ -38,42 +30,41 @@ class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
         'key_3' => 'value 9'
       ],
     ];
-    /** @var \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions */
-    $definitions = [];
-    foreach ($definition_data as $key => $item) {
-      $definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
-      $definition->method('getPluginId')
-        ->willReturn($key);
-      $definition->method('getProperties')
-        ->willReturn($item);
-      $definition->method('getProperty')
-        ->withConsecutive(['key_1'], ['key_2'], ['key_3'])
-        ->willReturnOnConsecutiveCalls($item['key_1'], $item['key_2'], $item['key_3']);
-      $definitions[$key] = $definition;
-    }
+  }
 
-    /** @var \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface $discovery */
-    $discovery = $this->getMockForAbstractClass(AbstractPluginDiscovery::class);
+
+  /**
+   * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::rewind
+   * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::current
+   * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::key
+   * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::next
+   * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::valid
+   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getPluginType
+   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinitions
+   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinition
+   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::hasDefinition
+   */
+  public function testPluginDiscoveryTrait() {
+    /** @var \EclipseGc\Plugin\Discovery\PluginDictionaryInterface $discovery */
+    $discovery = $this->getMockForAbstractClass(AbstractPluginDictionary::class);
+    $discovery->setDiscovery(new PluginDiscovery($this->definition_data));
     $reflection = new \ReflectionClass($discovery);
-    // Set definitions.
-    $property = $reflection->getProperty('definitions');
-    $property->setAccessible(TRUE);
-    $property->setValue($discovery, $definitions);
     // Set plugin type.
     $property = $reflection->getProperty('plugin_type');
     $property->setAccessible(TRUE);
     $property->setValue($discovery, 'test_plugin_type');
 
-    $data_keys = array_keys($definition_data);
+    $data_keys = array_keys($this->definition_data);
     $keyed_definitions = [];
-    $this->assertEquals(0, $discovery->key());
+    $set = $discovery->getDefinitions();
+    $this->assertEquals(0, $set->key());
     /** @var \EclipseGc\Plugin\PluginDefinitionInterface $definition */
-    foreach ($discovery as $key => $definition) {
-      $this->assertTrue($discovery->valid());
-      $this->assertEquals($definition, $discovery->current());
-      $this->assertEquals($key, $discovery->key());
+    foreach ($set as $key => $definition) {
+      $this->assertTrue($set->valid());
+      $this->assertEquals($definition, $set->current());
+      $this->assertEquals($key, $set->key());
       $data_key = $data_keys[$key];
-      $data = $definition_data[$data_key];
+      $data = $this->definition_data[$data_key];
       $this->assertEquals($data_key, $definition->getPluginId());
       $this->assertEquals($data, $definition->getProperties());
       $this->assertEquals($data['key_1'], $definition->getProperty('key_1'));
@@ -82,23 +73,22 @@ class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
       $keyed_definitions[$data_key] = $definition;
     }
     // There are 3 items in our iterator, so current key should be 3.
-    $this->assertEquals(3, $discovery->key());
+    $this->assertEquals(3, $set->key());
     // Manually force it forward to check validity
-    $discovery->next();
+    $set->next();
     // Valid should fail now.
-    $this->assertFalse($discovery->valid());
+    $this->assertFalse($set->valid());
     // Rewind the iterator
-    $discovery->rewind();
+    $set->rewind();
     // Should be 0.
-    $this->assertEquals(0, $discovery->key());
+    $this->assertEquals(0, $set->key());
     // We can check current against getDefinition because we know the order.
-    $this->assertEquals($discovery->getDefinition('plugin_definition_1'), $discovery->current());
+    $this->assertEquals($discovery->getDefinition('plugin_definition_1'), $set->current());
     // Force the iterator forward again.
-    $discovery->next();
+    $set->next();
     // Recheck against getDefinition.
-    $this->assertEquals($discovery->getDefinition('plugin_definition_2'), $discovery->current());
+    $this->assertEquals($discovery->getDefinition('plugin_definition_2'), $set->current());
     $this->assertEquals('test_plugin_type', $discovery->getPluginType());
-    $this->assertEquals($keyed_definitions, $discovery->getDefinitions());
     $this->assertEquals($keyed_definitions['plugin_definition_1'], $discovery->getDefinition('plugin_definition_1'));
     $this->assertEquals($keyed_definitions['plugin_definition_2'], $discovery->getDefinition('plugin_definition_2'));
     $this->assertEquals($keyed_definitions['plugin_definition_3'], $discovery->getDefinition('plugin_definition_3'));

@@ -6,6 +6,7 @@
  */
 
 namespace EclipseGc\Plugin\Traits;
+use EclipseGc\Plugin\PluginDefinitionInterface;
 
 /**
  * Implementation of \EclipseGc\Plugin\PluginInterface
@@ -20,14 +21,14 @@ trait PluginTrait {
   /**
    * @see \EclipseGc\Plugin\PluginInterface::getPluginId()
    */
-  public function getPluginId() {
+  public function getPluginId() : string {
     return $this->definition->getPluginId();
   }
 
   /**
    * @see \EclipseGc\Plugin\PluginInterface::getPluginDefinition()
    */
-  public function getPluginDefinition() {
+  public function getPluginDefinition() : PluginDefinitionInterface {
     return $this->definition;
   }
 

@@ -15,7 +15,7 @@ class EvenPluginDefinitionFilter implements PluginDefinitionFilterInterface {
   /**
    * {@inheritdoc}
    */
-  public function filter(PluginDefinitionInterface $definition) {
+  public function filter(PluginDefinitionInterface $definition) : bool {
     $plugin_id = $definition->getPluginId();
     $pos = strrpos($plugin_id, '_');
     $num = (int) substr($plugin_id, $pos+1);
