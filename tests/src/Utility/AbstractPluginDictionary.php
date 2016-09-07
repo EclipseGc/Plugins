@@ -5,7 +5,7 @@
  * Contains \EclipseGc\Plugin\Test\AbstractPluginDictionary.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Utility;
 
 use EclipseGc\Plugin\Dictionary\PluginDictionaryInterface;
 use EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;

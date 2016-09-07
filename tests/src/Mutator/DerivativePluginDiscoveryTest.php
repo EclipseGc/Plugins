@@ -5,9 +5,11 @@
  * Contains \EclipseGc\Plugin\Test\DerivativePluginDiscoveryTest.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Mutator;
 
 use EclipseGc\Plugin\Mutator\PluginDefinitionDeriverMutator;
+use EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary;
+use EclipseGc\Plugin\Test\Utility\PluginDiscoveryDerivatives;
 
 class DerivativePluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
 

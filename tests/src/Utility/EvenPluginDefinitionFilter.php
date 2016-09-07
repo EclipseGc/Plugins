@@ -5,7 +5,7 @@
  * Contains \EclipseGc\Plugin\Test\EvenPluginDefinitionFilter.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Utility;
 
 use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;

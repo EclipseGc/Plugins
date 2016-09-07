@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \EclipseGc\Plugin\Test\PluginInterfaceTest.
+ * Contains \EclipseGc\Plugin\Test\Plugin\PluginInterfaceTest.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Plugin;
 
 class PluginInterfaceTest extends \PHPUnit_Framework_TestCase {
 

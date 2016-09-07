@@ -5,7 +5,7 @@
  * Contains \EclipseGc\Plugin\Test\PluginDiscoveryDerivatives.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Utility;
 
 use EclipseGc\Plugin\Discovery\PluginDefinitionSet;
 use EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;

@@ -10,6 +10,7 @@ namespace EclipseGc\Plugin\Dictionary;
 use EclipseGc\Plugin\Discovery\PluginDefinitionSet;
 use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;
+use EclipseGc\Plugin\PluginInterface;
 
 interface PluginDictionaryInterface {
 
@@ -57,5 +58,18 @@ interface PluginDictionaryInterface {
    *   The filtered plugin definition set.
    */
   public function getFilteredDefinitions(PluginDefinitionFilterInterface ...$filters) : PluginDefinitionSet;
+
+  /**
+   * Creates a new instance of the specified plugin.
+   *
+   * @param string $pluginId
+   *   The plugin id.
+   *
+   * @param array $constructors
+   *   A variadic parameter for plugin constructor parameters.
+   *
+   * @return \EclipseGc\Plugin\PluginInterface
+   */
+  public function createInstance(string $pluginId, ...$constructors) : PluginInterface ;
 
 }

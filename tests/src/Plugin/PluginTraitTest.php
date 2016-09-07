@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \EclipseGc\Plugin\Test\PluginTraitTest.
+ * Contains \EclipseGc\Plugin\Test\Plugin\PluginTraitTest.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Plugin;
 
 class PluginTraitTest extends \PHPUnit_Framework_TestCase {
 

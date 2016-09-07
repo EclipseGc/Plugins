@@ -5,39 +5,37 @@
  * Contains \EclipseGc\Plugin\Test\PluginDefinitionFilterTest.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Filter;
 
 use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
+use EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary;
+use EclipseGc\Plugin\Test\Utility\EvenPluginDefinitionFilter;
+use EclipseGc\Plugin\Test\Utility\PluginDiscovery;
 
 class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
 
-  protected $definition_data = [];
-
-  protected function setUp() {
-    parent::setUp();
-    $this->definition_data = [
-      'plugin_definition_1' => [
-        'key_1' => 'value 1',
-        'key_2' => 'value 2',
-        'key_3' => 'value 3'
-      ],
-      'plugin_definition_2' => [
-        'key_1' => 'value 4',
-        'key_2' => 'value 5',
-        'key_3' => 'value 6'
-      ],
-      'plugin_definition_3' => [
-        'key_1' => 'value 7',
-        'key_2' => 'value 8',
-        'key_3' => 'value 9'
-      ],
-      'plugin_definition_4' => [
-        'key_1' => 'value 10',
-        'key_2' => 'value 11',
-        'key_3' => 'value 12'
-      ],
-    ];
-  }
+  protected $definition_data = [
+    'plugin_definition_1' => [
+      'key_1' => 'value 1',
+      'key_2' => 'value 2',
+      'key_3' => 'value 3'
+    ],
+    'plugin_definition_2' => [
+      'key_1' => 'value 4',
+      'key_2' => 'value 5',
+      'key_3' => 'value 6'
+    ],
+    'plugin_definition_3' => [
+      'key_1' => 'value 7',
+      'key_2' => 'value 8',
+      'key_3' => 'value 9'
+    ],
+    'plugin_definition_4' => [
+      'key_1' => 'value 10',
+      'key_2' => 'value 11',
+      'key_3' => 'value 12'
+    ],
+  ];
 
 
   public function testEvenPluginDefinitionFilter() {

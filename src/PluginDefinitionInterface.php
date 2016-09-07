@@ -33,4 +33,22 @@ interface PluginDefinitionInterface {
    */
   public function getPluginId() : string ;
 
+  /**
+   * Gets the class name of the plugin.
+   *
+   * The returned class must implement \EclipseGc\Plugin\PluginInterface.
+   *
+   * @return string
+   */
+  public function getClass() : string ;
+
+  /**
+   * Gets the class name of the factory.
+   *
+   * The returned class must implement \EclipseGc\Plugin\Factory\FactoryInterface.
+   *
+   * @return string
+   */
+  public function getFactory() : string ;
+
 }

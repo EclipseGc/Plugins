@@ -5,9 +5,10 @@
  * Contains \EclipseGc\Plugin\Test\StaticPluginDiscoveryTest.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Dictionary;
 
 use EclipseGc\Plugin\Discovery\StaticPluginDictionary;
+use EclipseGc\Plugin\Test\Utility\PluginDiscovery;
 
 class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
 
@@ -58,6 +59,9 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * Test definitions manually added to the StaticPluginDiscovery.
+   *
+   * @covers \EclipseGc\Plugin\Discovery\StaticPluginDictionary::addPluginDefinition
+   * @covers \EclipseGc\Plugin\Discovery\StaticPluginDictionary::getDefinitions
    */
   public function testAddingStaticDefinitions() {
     $dictionary = new StaticPluginDictionary();
@@ -77,6 +81,9 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * Add a new definition to an existing set of definitions.
+   *
+   * @covers \EclipseGc\Plugin\Discovery\StaticPluginDictionary::addPluginDefinition
+   * @covers \EclipseGc\Plugin\Discovery\StaticPluginDictionary::getDefinitions
    */
   public function testAddingStaticDefinitionToExistingDefinitions() {
     $dictionary = new StaticPluginDictionary();

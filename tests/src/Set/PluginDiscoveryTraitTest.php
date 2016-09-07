@@ -5,7 +5,10 @@
  * Contains \EclipseGc\Plugin\Test\PluginDiscoveryTraitTest.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Set;
+
+use EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary;
+use EclipseGc\Plugin\Test\Utility\PluginDiscovery;
 
 class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
 

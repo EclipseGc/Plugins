@@ -5,7 +5,7 @@
  * Contains \EclipseGc\Plugin\Test\PluginDiscovery.
  */
 
-namespace EclipseGc\Plugin\Test;
+namespace EclipseGc\Plugin\Test\Utility;
 
 use EclipseGc\Plugin\Discovery\PluginDefinitionSet;
 use EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;
@@ -38,6 +38,10 @@ class PluginDiscovery extends \PHPUnit_Framework_TestCase implements PluginDisco
       $definition->method('getProperty')
         ->withConsecutive(['key_1'], ['key_2'], ['key_3'])
         ->willReturnOnConsecutiveCalls($item['key_1'], $item['key_2'], $item['key_3']);
+      $definition->method('getClass')
+        ->willReturn('EclipseGc\Plugin\Test\TestPlugin');
+      $definition->method('getClass')
+        ->willReturn('EclipseGc\Plugin\Test\Factory\TestFactory');
       $definitions[] = $definition;
     }
     return new PluginDefinitionSet(...$definitions);
