@@ -1,4 +1,5 @@
 composer.phar
+build_test_coverage.sh
 /vendor/
 /.idea/
 /build/
