@@ -61,6 +61,9 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
     }
   }
 
+  /**
+   * @covers \EclipseGc\Plugin\Factory\FactoryInterface::createInstance
+   */
   public function testPluginFactoryInterface() {
     $arg_1 = 'foo';
     $arg_2 = 'bar';
@@ -71,14 +74,14 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
     /** @var \EclipseGc\Plugin\Factory\FactoryInterface $factorzy */
     $factory = $this->createMock('\EclipseGc\Plugin\Factory\FactoryInterface');
     $factory->method('createInstance')
-      ->withConsecutive($definitions[0], $definitions[1], $definitions[2])
+      ->withConsecutive($definitions[0], [$definitions[1], $arg_1], [$definitions[2], $arg_1, $arg_2])
       ->willReturnOnConsecutiveCalls($this->plugins['test_plugin_1'], $this->plugins['test_plugin_2'], $this->plugins['test_plugin_3']);
 
-    $i = 1;
-    foreach ($definitions as $definition) {
-      $plugin = $factory->createInstance($definition);
-      $this->assertEquals($plugin, $this->plugins["test_plugin_$i"]);
-      $i++;
-    }
+    $plugin = $factory->createInstance($definitions[0]);
+    $this->assertEquals($plugin, $this->plugins["test_plugin_1"]);
+    $plugin = $factory->createInstance($definitions[1], $arg_1);
+    $this->assertEquals($plugin, $this->plugins["test_plugin_2"]);
+    $plugin = $factory->createInstance($definitions[2], $arg_1, $arg_2);
+    $this->assertEquals($plugin, $this->plugins["test_plugin_3"]);
   }
 }
