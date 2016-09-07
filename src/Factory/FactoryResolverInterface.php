@@ -12,9 +12,9 @@ interface FactoryResolverInterface {
   /**
    * Resolves a factory class string into a FactoryInterface object.
    *
-   * @param string $factory_class
+   * @param string $factoryClass
    *
    * @return FactoryInterface
    */
-  public function getFactoryInstance(string $factory_class);
+  public function getFactoryInstance(string $factoryClass);
 }
