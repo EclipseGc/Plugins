@@ -18,22 +18,30 @@ class PluginDefinitionFilterTest extends \PHPUnit_Framework_TestCase {
     'plugin_definition_1' => [
       'key_1' => 'value 1',
       'key_2' => 'value 2',
-      'key_3' => 'value 3'
+      'key_3' => 'value 3',
+      'class' => 'EclipseGc\Plugin\Test\TestPlugin',
+      'factory' => 'EclipseGc\Plugin\Test\Factory\TestFactory',
     ],
     'plugin_definition_2' => [
       'key_1' => 'value 4',
       'key_2' => 'value 5',
-      'key_3' => 'value 6'
+      'key_3' => 'value 6',
+      'class' => 'EclipseGc\Plugin\Test\TestPlugin',
+      'factory' => 'EclipseGc\Plugin\Test\Factory\TestFactory',
     ],
     'plugin_definition_3' => [
       'key_1' => 'value 7',
       'key_2' => 'value 8',
-      'key_3' => 'value 9'
+      'key_3' => 'value 9',
+      'class' => 'EclipseGc\Plugin\Test\TestPlugin',
+      'factory' => 'EclipseGc\Plugin\Test\Factory\TestFactory',
     ],
     'plugin_definition_4' => [
       'key_1' => 'value 10',
       'key_2' => 'value 11',
-      'key_3' => 'value 12'
+      'key_3' => 'value 12',
+      'class' => 'EclipseGc\Plugin\Test\TestPlugin',
+      'factory' => 'EclipseGc\Plugin\Test\Factory\TestFactory',
     ],
   ];
 

@@ -14,7 +14,7 @@ class TestPluginFactory implements FactoryInterface {
 
   public function createInstance(PluginDefinitionInterface $definition, ...$constructors) {
     $class = $definition->getClass();
-    return new $class(...$constructors);
+    return new $class($definition, ...$constructors);
   }
 
 }

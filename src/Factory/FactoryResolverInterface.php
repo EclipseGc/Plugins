@@ -16,5 +16,5 @@ interface FactoryResolverInterface {
    *
    * @return FactoryInterface
    */
-  public function getFactoryInstance(string $factoryClass);
+  public function getFactoryInstance(string $factoryClass) : FactoryInterface ;
 }

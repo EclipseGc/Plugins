@@ -39,9 +39,9 @@ class PluginDiscovery extends \PHPUnit_Framework_TestCase implements PluginDisco
         ->withConsecutive(['key_1'], ['key_2'], ['key_3'])
         ->willReturnOnConsecutiveCalls($item['key_1'], $item['key_2'], $item['key_3']);
       $definition->method('getClass')
-        ->willReturn('EclipseGc\Plugin\Test\TestPlugin');
-      $definition->method('getClass')
-        ->willReturn('EclipseGc\Plugin\Test\Factory\TestFactory');
+        ->willReturn($item['class']);
+      $definition->method('getFactory')
+        ->willReturn($item['factory']);
       $definitions[] = $definition;
     }
     return new PluginDefinitionSet(...$definitions);

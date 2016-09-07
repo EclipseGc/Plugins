@@ -9,6 +9,7 @@ namespace EclipseGc\Plugin\Test\Utility;
 
 use EclipseGc\Plugin\Dictionary\PluginDictionaryInterface;
 use EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;
+use EclipseGc\Plugin\Factory\FactoryResolverInterface;
 use EclipseGc\Plugin\Mutator\PluginDefinitionMutatorInterface;
 use EclipseGc\Plugin\Traits\PluginDictionaryTrait;
 
@@ -32,6 +33,24 @@ abstract class AbstractPluginDictionary implements PluginDictionaryInterface {
    */
   public function setMutators(PluginDefinitionMutatorInterface ...$mutators) {
     $this->mutators = $mutators;
+  }
+
+  /**
+   * Setter for factory class string.
+   *
+   * @param string $factoryClass
+   */
+  public function setFactoryClass(string $factoryClass) {
+    $this->factory_class = $factoryClass;
+  }
+
+  /**
+   * Setter for factory resolver.
+   *
+   * @param \EclipseGc\Plugin\Factory\FactoryResolverInterface $factoryResolver
+   */
+  public function setFactoryResolver(FactoryResolverInterface $factoryResolver) {
+    $this->factoryResolver = $factoryResolver;
   }
 
 }

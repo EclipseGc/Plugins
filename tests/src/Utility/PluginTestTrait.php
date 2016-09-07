@@ -6,6 +6,7 @@
  */
 
 namespace EclipseGc\Plugin\Test\Utility;
+use EclipseGc\Plugin\PluginDefinitionInterface;
 
 /**
  * Class PluginTestTrait

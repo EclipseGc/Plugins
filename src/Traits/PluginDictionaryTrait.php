@@ -7,6 +7,7 @@
 
 namespace EclipseGc\Plugin\Traits;
 use EclipseGc\Plugin\Discovery\PluginDefinitionSet;
+use EclipseGc\Plugin\Factory\FactoryInterface;
 use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;
 use EclipseGc\Plugin\PluginInterface;
@@ -133,11 +134,11 @@ trait PluginDictionaryTrait {
    *
    * @return \EclipseGc\Plugin\Factory\FactoryInterface
    */
-  protected function resolveFactory(string $factory_class) {
+  protected function resolveFactory(string $factory_class) : FactoryInterface {
     // If the plugin's factory class is the same as the default.
     if (!empty($this->factory_class) && $this->factory_class == $factory_class) {
       // Check to see if we've previously instantiated the default.
-      if (!is_null($this->factory)) {
+      if (is_null($this->factory)) {
         $this->factory = $this->factoryResolver->getFactoryInstance($this->factory_class);
       }
       return $this->factory;
