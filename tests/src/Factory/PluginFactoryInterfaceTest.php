@@ -71,7 +71,7 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
     /** @var \EclipseGc\Plugin\Factory\FactoryInterface $factorzy */
     $factory = $this->createMock('\EclipseGc\Plugin\Factory\FactoryInterface');
     $factory->method('createInstance')
-      ->withConsecutive($definitions[0], [$definitions[1], $arg_1], [$definitions[2], $arg_1, $arg_2])
+      ->withConsecutive($definitions[0], $definitions[1], $definitions[2])
       ->willReturnOnConsecutiveCalls($this->plugins['test_plugin_1'], $this->plugins['test_plugin_2'], $this->plugins['test_plugin_3']);
 
     $i = 1;
