@@ -48,10 +48,10 @@ class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
    * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::key
    * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::next
    * @covers \EclipseGc\Plugin\Discovery\PluginDefinitionSet::valid
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getPluginType
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinitions
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::getDefinition
-   * @covers \EclipseGc\Plugin\Traits\PluginDiscoveryTrait::hasDefinition
+   * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::getPluginType
+   * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::getDefinitions
+   * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::getDefinition
+   * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::hasDefinition
    */
   public function testPluginDiscoveryTrait() {
     /** @var \EclipseGc\Plugin\Discovery\PluginDictionaryInterface $discovery */
