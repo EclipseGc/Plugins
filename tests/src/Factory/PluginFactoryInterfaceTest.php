@@ -89,4 +89,22 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($plugin->arg1, $this->plugins['test_plugin_3']->arg1);
     $this->assertEquals($plugin->arg2, $this->plugins['test_plugin_3']->arg2);
   }
+
+  /**
+   * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::resolveFactory
+   */
+  public function testPluginDictionaryFactoryResolution() {
+    $dictionary = $this->getMockForAbstractClass('\EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary');
+    $dictionary->setFactoryClass('\EclipseGc\Plugin\Test\Factory\TestPluginFactory');
+    $dictionary->setFactoryResolver(new TestFactoryResolver());
+    $reflector = new \ReflectionClass($dictionary);
+    $method = $reflector->getMethod('resolveFactory');
+    $method->setAccessible(TRUE);
+    $dictionary_factory = $method->invoke($dictionary, '\EclipseGc\Plugin\Test\Factory\TestPluginFactory');
+    $factory = new TestPluginFactory();
+    $this->assertEquals($factory, $dictionary_factory);
+    $dictionary_factory = $method->invoke($dictionary, '\EclipseGc\Plugin\Test\Factory\OtherTestPluginFactory');
+    $this->assertNotEquals($factory, $dictionary_factory);
+  }
+
 }
