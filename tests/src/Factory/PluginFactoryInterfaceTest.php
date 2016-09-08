@@ -65,6 +65,7 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @covers \EclipseGc\Plugin\Dictionary\PluginDictionaryInterface::createInstance
+   * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::createInstance
    */
   public function testPluginDictionaryFactory() {
     /** @var \EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary $dictionary */
