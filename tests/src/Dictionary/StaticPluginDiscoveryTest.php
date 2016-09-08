@@ -118,4 +118,28 @@ class StaticPluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($discovery->findPluginImplementations(...array_values($definitions)), $dictionary->getDefinitions());
   }
 
+  /**
+   * Ensure mutators still work with StaticPluginDictionary.
+   *
+   * @covers \EclipseGc\Plugin\Discovery\StaticPluginDictionary::getDefinitions
+   */
+  public function testStaticDictionaryMutators() {
+    $dictionary = new StaticPluginDictionary();
+    $mutator = $this->createMock('\EclipseGc\Plugin\Mutator\PluginDefinitionMutatorInterface');
+    $mutator->method('mutate')
+      ->willReturn(['plugin_definition_2' => $this->definitions['plugin_definition_2']]);
+    $discovery = new PluginDiscovery($this->definition_data);
+    $reflection = new \ReflectionClass($dictionary);
+    $property = $reflection->getProperty('discovery');
+    $property->setAccessible(TRUE);
+    $property->setValue($dictionary, $discovery);
+    $property = $reflection->getProperty('mutators');
+    $property->setAccessible(TRUE);
+    $property->setValue($dictionary, [$mutator]);
+    $this->assertEquals(1, count($dictionary->getDefinitions()));
+    $this->assertTrue($dictionary->hasDefinition('plugin_definition_2'));
+    $this->assertFalse($dictionary->hasDefinition('plugin_definition_1'));
+    $this->assertFalse($dictionary->hasDefinition('plugin_definition_3'));
+  }
+
 }
