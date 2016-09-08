@@ -1,5 +1,6 @@
 {
   "name": "eclipsegc/plugins",
+  "description": "This library provides a set of tools designed to ease discovery of 'like' objects, assembly of those objects into a common dictionary, and facilitate common factory patterns for objects within the dictionary.",
   "authors": [
     {
       "name": "Kris Vanderwater",
@@ -12,6 +13,9 @@
     "psr-4": {
       "EclipseGc\\Plugin\\": "src/"
     }
+  },
+  "require": {
+    "php": ">=7.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.4",
