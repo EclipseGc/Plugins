@@ -1,6 +1,7 @@
 {
   "name": "eclipsegc/plugins",
   "description": "This library provides a set of tools designed to ease discovery of 'like' objects, assembly of those objects into a common dictionary, and facilitate common factory patterns for objects within the dictionary.",
+  "license": "GPL-2.0+",
   "authors": [
     {
       "name": "Kris Vanderwater",
