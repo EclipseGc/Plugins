@@ -10,13 +10,14 @@ namespace EclipseGc\Plugin\Test\Mutator;
 use EclipseGc\Plugin\Mutator\PluginDefinitionDeriverMutator;
 use EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary;
 use EclipseGc\Plugin\Test\Utility\PluginDiscoveryDerivatives;
+use EclipseGc\Plugin\Test\Utility\TestDeriverResolver;
 
 class DerivativePluginDiscoveryTest extends \PHPUnit_Framework_TestCase {
 
   public function testPluginDefinitionDeriverMutator() {
     $discovery = $this->getMockForAbstractClass(AbstractPluginDictionary::class);
     $discovery->setDiscovery(new PluginDiscoveryDerivatives());
-    $mutator = new PluginDefinitionDeriverMutator();
+    $mutator = new PluginDefinitionDeriverMutator(new TestDeriverResolver());
     $discovery->setMutators($mutator);
     $this->assertEquals(5, count($discovery->getDefinitions()));
     $definition = $discovery->getDefinition('plugin_definition_3:test2');

@@ -40,12 +40,9 @@ class PluginDiscoveryDerivatives extends \PHPUnit_Framework_TestCase implements 
     ];
     foreach ($definition_data as $key => $item) {
       if ($key == 'plugin_definition_3') {
-        $deriver = $this->createMock('\EclipseGc\Plugin\Derivative\PluginDeriverInterface');
-        $deriver->method('getDerivativeDefinitions')
-          ->willReturn($this->getMockDerivatives());
         $definition = $this->createMock('\EclipseGc\Plugin\Derivative\PluginDefinitionDerivativeInterface');
         $definition->method('getDeriver')
-          ->willReturn($deriver);
+          ->willReturn('\EclipseGc\Plugin\Test\Utility\TestDeriver');
       }
       else {
         $definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
@@ -60,39 +57,6 @@ class PluginDiscoveryDerivatives extends \PHPUnit_Framework_TestCase implements 
       $definitions[] = $definition;
     }
     return new PluginDefinitionSet(...$definitions);
-  }
-
-  /**
-   * Mocks derivatives for the mock deriver to return.
-   *
-   * @return \EclipseGc\Plugin\PluginDefinitionInterface[]
-   */
-  protected function getMockDerivatives() {
-    $items = [
-      'plugin_definition_3:test' => [
-        'key_1' => 'value 7 test',
-        'key_2' => 'value 8 test',
-        'key_3' => 'value 9 test'
-      ],
-      'plugin_definition_3:test2' => [
-        'key_1' => 'value 7 test2',
-        'key_2' => 'value 8 test2',
-        'key_3' => 'value 9 test2'
-      ]
-    ];
-    $definitions = [];
-    foreach ($items as $key => $item) {
-      $definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
-      $definition->method('getPluginId')
-        ->willReturn($key);
-      $definition->method('getProperties')
-        ->willReturn($item);
-      $definition->method('getProperty')
-        ->withConsecutive(['key_1'], ['key_2'], ['key_3'])
-        ->willReturnOnConsecutiveCalls($item['key_1'], $item['key_2'], $item['key_3']);
-      $definitions[$key] = $definition;
-    }
-    return $definitions;
   }
 
 }

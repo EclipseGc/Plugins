@@ -14,15 +14,8 @@ interface PluginDefinitionDerivativeInterface extends PluginDefinitionInterface{
   /**
    * Get the deriver class for this plugin definition.
    *
-   * @return \EclipseGc\Plugin\Derivative\PluginDeriverInterface
+   * @return string
    */
-  public function getDeriver();
-
-  /**
-   * Get the array of dependencies for the deriver class.
-   *
-   * @return array mixed
-   */
-  public function getDeriverDependencies();
+  public function getDeriver() : string ;
 
 }
