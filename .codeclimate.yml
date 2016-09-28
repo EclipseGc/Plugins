@@ -4,9 +4,7 @@ engines:
     enabled: true
     config:
       languages:
-      - ruby
       - javascript
-      - python
       - php
   fixme:
     enabled: true
@@ -31,7 +29,5 @@ ratings:
   - "**.jsx"
   - "**.module"
   - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths:
 - tests/
