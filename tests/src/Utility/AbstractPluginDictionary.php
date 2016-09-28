@@ -53,4 +53,11 @@ abstract class AbstractPluginDictionary implements PluginDictionaryInterface {
     $this->factoryResolver = $factoryResolver;
   }
 
+  /**
+   * Reset the factory to NULL.
+   */
+  public function resetFactory() {
+    $this->factory = NULL;
+  }
+
 }

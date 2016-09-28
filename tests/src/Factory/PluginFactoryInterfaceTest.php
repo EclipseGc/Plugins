@@ -107,6 +107,7 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($expected_factory, $dictionary_factory);
     $dictionary_factory = $method->invoke($dictionary, NULL);
     $this->assertEquals($expected_factory, $dictionary_factory);
+    $dictionary->resetFactory();
     $expected_factory = new OtherTestPluginFactory();
     $dictionary_factory = $method->invoke($dictionary, '\EclipseGc\Plugin\Test\Factory\OtherTestPluginFactory');
     $this->assertEquals($expected_factory, $dictionary_factory);
