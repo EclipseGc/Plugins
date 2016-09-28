@@ -10,8 +10,20 @@ engines:
       - php
   fixme:
     enabled: true
+  # The PHPMD checks aren't from Drupal, for info on why it's useful, comment here:
+  # https://github.com/josephdpurcell/code-climate-and-drupal/issues/2
   phpmd:
     enabled: true
+    config:
+      file_extensions: "php,inc,module"
+      rulesets: ".phpmd.xml"
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module"
+      encoding: utf-8
+      standard: "Drupal"
+      ignore_warnings: true
 ratings:
   paths:
   - "**.inc"
