@@ -7,6 +7,7 @@
 
 namespace EclipseGc\Plugin\Test\Factory;
 
+use EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary;
 use EclipseGc\Plugin\Test\Utility\PluginDiscovery;
 use EclipseGc\Plugin\Test\Utility\PluginTestTrait;
 use EclipseGc\Plugin\Test\Utility\TestFactoryResolver;
@@ -94,19 +95,21 @@ class PluginFactoryInterfaceTest extends \PHPUnit_Framework_TestCase {
    * @covers \EclipseGc\Plugin\Traits\PluginDictionaryTrait::resolveFactory
    */
   public function testPluginDictionaryFactoryResolution() {
+    /** @var AbstractPluginDictionary $dictionary */
     $dictionary = $this->getMockForAbstractClass('\EclipseGc\Plugin\Test\Utility\AbstractPluginDictionary');
     $dictionary->setFactoryClass('\EclipseGc\Plugin\Test\Factory\TestPluginFactory');
     $dictionary->setFactoryResolver(new TestFactoryResolver());
     $reflector = new \ReflectionClass($dictionary);
     $method = $reflector->getMethod('resolveFactory');
     $method->setAccessible(TRUE);
-    $dictionary_factory = $method->invoke($dictionary, NULL);
-    $factory = new TestPluginFactory();
-    $this->assertEquals($factory, $dictionary_factory);
+    $expected_factory = new TestPluginFactory();
     $dictionary_factory = $method->invoke($dictionary, '\EclipseGc\Plugin\Test\Factory\TestPluginFactory');
-    $this->assertEquals($factory, $dictionary_factory);
+    $this->assertEquals($expected_factory, $dictionary_factory);
+    $dictionary_factory = $method->invoke($dictionary, NULL);
+    $this->assertEquals($expected_factory, $dictionary_factory);
+    $expected_factory = new OtherTestPluginFactory();
     $dictionary_factory = $method->invoke($dictionary, '\EclipseGc\Plugin\Test\Factory\OtherTestPluginFactory');
-    $this->assertNotEquals($factory, $dictionary_factory);
+    $this->assertEquals($expected_factory, $dictionary_factory);
   }
 
 }
