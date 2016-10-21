@@ -1,14 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \EclipseGc\Plugin\Factory\FactoryInterface.
- */
-
 namespace EclipseGc\Plugin\Factory;
 
 use EclipseGc\Plugin\PluginDefinitionInterface;
 
+/**
+ * An interface responsible for instantiating plugins from a definition.
+ */
 interface FactoryInterface {
 
 
