@@ -1,20 +1,20 @@
 <?php
 
-/**
- * @file
- * Contains \EclipseGc\Plugin\Discovery\StaticPluginDiscovery.
- */
-
 namespace EclipseGc\Plugin\Discovery;
 
 use EclipseGc\Plugin\PluginDefinitionInterface;
 use EclipseGc\Plugin\Traits\PluginDictionaryTrait;
 
+/**
+ * A plugin dictionary that allows arbitrary plugin definitions to be added.
+ */
 class StaticPluginDictionary implements StaticPluginDictionaryInterface {
 
   use PluginDictionaryTrait;
 
   /**
+   * The array of added plugin definitions.
+   *
    * @var \EclipseGc\Plugin\PluginDefinitionInterface[]
    */
   protected $definitions = [];
