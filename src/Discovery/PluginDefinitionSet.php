@@ -28,7 +28,7 @@ class PluginDefinitionSet implements \Iterator, \Countable {
   /**
    * PluginDefinitionSet constructor.
    *
-   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions
+   * @param \EclipseGc\Plugin\PluginDefinitionInterface ...$definitions
    *   An array of plugin definitions to initially populate the set.
    */
   public function __construct(PluginDefinitionInterface ...$definitions) {
@@ -129,7 +129,7 @@ class PluginDefinitionSet implements \Iterator, \Countable {
   /**
    * Filters the set of definitions and returns a new set.
    *
-   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] $filters
+   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface ...$filters
    *   The list of filter to apply.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet

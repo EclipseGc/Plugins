@@ -34,7 +34,7 @@ interface PluginDictionaryInterface {
    * @param string $pluginId
    *   The plugin id.
    *
-   * @return \EclipseGc\Plugin\PluginDefinitionInterface|NULL
+   * @return \EclipseGc\Plugin\PluginDefinitionInterface|null
    *   The plugin definition if available, otherwise NULL.
    */
   public function getDefinition(string $pluginId) : PluginDefinitionInterface;
