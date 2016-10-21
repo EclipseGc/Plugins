@@ -1,24 +1,26 @@
 <?php
 
-/**
- * @file
- * Contains \EclipseGc\Plugin\Discovery\PluginDefinitionSet.
- */
-
 namespace EclipseGc\Plugin\Discovery;
 
 use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 use EclipseGc\Plugin\Mutator\PluginDefinitionMutatorInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;
 
+/**
+ * Provides a set of plugin definitions.
+ */
 class PluginDefinitionSet implements \Iterator, \Countable {
 
   /**
+   * The set of plugin definitions.
+   *
    * @var \EclipseGc\Plugin\PluginDefinitionInterface[]
    */
   protected $set;
 
   /**
+   * The current iterator pointer.
+   *
    * @var int
    */
   protected $pointer = 0;
@@ -26,7 +28,7 @@ class PluginDefinitionSet implements \Iterator, \Countable {
   /**
    * PluginDefinitionSet constructor.
    *
-   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] ...$definitions
+   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions
    */
   public function __construct(PluginDefinitionInterface ...$definitions) {
     foreach ($definitions as $definition) {
@@ -84,6 +86,7 @@ class PluginDefinitionSet implements \Iterator, \Countable {
    *   The plugin id.
    *
    * @return \EclipseGc\Plugin\PluginDefinitionInterface
+   *   The chosen plugin definition.
    */
   public function getDefinition($pluginId) : PluginDefinitionInterface {
     return $this->hasDefinition($pluginId) ? $this->set[$pluginId] : NULL;
@@ -95,7 +98,8 @@ class PluginDefinitionSet implements \Iterator, \Countable {
    * @param string $pluginId
    *   The plugin id.
    *
-   * @return boolean
+   * @return bool
+   *   Boolean value representing the presences of a plugin.
    */
   public function hasDefinition(string $pluginId) : bool {
     return isset($this->set[$pluginId]);
@@ -105,6 +109,7 @@ class PluginDefinitionSet implements \Iterator, \Countable {
    * Provides the sets list of plugin ids as an array.
    *
    * @return array
+   *   The set of definitions array keys.
    */
   public function getKeys() : array {
     return array_keys($this->set);
@@ -123,10 +128,11 @@ class PluginDefinitionSet implements \Iterator, \Countable {
   /**
    * Filters the set of definitions and returns a new set.
    *
-   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] ...$filters
+   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] $filters
    *   The list of filter to apply.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
+   *   The set of plugin definitions.
    */
   public function getFilteredSet(PluginDefinitionFilterInterface ...$filters) : PluginDefinitionSet {
     $set = $this->set;
