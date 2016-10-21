@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface.
- */
-
 namespace EclipseGc\Plugin\Dictionary;
 
 use EclipseGc\Plugin\Discovery\PluginDefinitionSet;
@@ -12,12 +7,16 @@ use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
 use EclipseGc\Plugin\PluginDefinitionInterface;
 use EclipseGc\Plugin\PluginInterface;
 
+/**
+ * An interface for inspecting and instantiating multiple plugin definitions.
+ */
 interface PluginDictionaryInterface {
 
   /**
    * Gets the string name of the associated plugin type.
    *
    * @return string
+   *   The plugin type.
    */
   public function getPluginType() : string;
 
@@ -25,6 +24,7 @@ interface PluginDictionaryInterface {
    * Gets the plugin definitions in this discovery object.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
+   *   A set of plugin definitions.
    */
   public function getDefinitions() : PluginDefinitionSet;
 
@@ -35,6 +35,7 @@ interface PluginDictionaryInterface {
    *   The plugin id.
    *
    * @return \EclipseGc\Plugin\PluginDefinitionInterface|NULL mixed
+   *   The plugin definition if available, otherwise NULL.
    */
   public function getDefinition(string $pluginId) : PluginDefinitionInterface;
 
@@ -44,7 +45,8 @@ interface PluginDictionaryInterface {
    * @param string $pluginId
    *   The plugin id.
    *
-   * @return boolean
+   * @return bool
+   *   Whether or not a given definition exists in the dictionary.
    */
   public function hasDefinition(string $pluginId) : bool;
 
@@ -69,7 +71,8 @@ interface PluginDictionaryInterface {
    *   A variadic parameter for plugin constructor parameters.
    *
    * @return \EclipseGc\Plugin\PluginInterface
+   *   A fully instantiated plugin.
    */
-  public function createInstance(string $pluginId, ...$constructors) : PluginInterface ;
+  public function createInstance(string $pluginId, ...$constructors) : PluginInterface;
 
 }
