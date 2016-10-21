@@ -11,7 +11,6 @@ use EclipseGc\Plugin\PluginDefinitionInterface;
  * instances of the same plugin with different plugin definitions. A deriver
  * class provides this capability and must be documented in the plugin
  * definition.
- *
  */
 interface PluginDefinitionDerivativeInterface extends PluginDefinitionInterface {
 
