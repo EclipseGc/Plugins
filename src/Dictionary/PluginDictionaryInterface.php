@@ -34,7 +34,7 @@ interface PluginDictionaryInterface {
    * @param string $pluginId
    *   The plugin id.
    *
-   * @return \EclipseGc\Plugin\PluginDefinitionInterface|NULL mixed
+   * @return \EclipseGc\Plugin\PluginDefinitionInterface|NULL
    *   The plugin definition if available, otherwise NULL.
    */
   public function getDefinition(string $pluginId) : PluginDefinitionInterface;
@@ -53,7 +53,7 @@ interface PluginDictionaryInterface {
   /**
    * Generates a new discovery object with a filtered list of definitions.
    *
-   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] $filters
+   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface ...$filters
    *   The list of filters to apply in order of application.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
@@ -67,7 +67,7 @@ interface PluginDictionaryInterface {
    * @param string $pluginId
    *   The plugin id.
    *
-   * @param array $constructors
+   * @param ...$constructors
    *   A variadic parameter for plugin constructor parameters.
    *
    * @return \EclipseGc\Plugin\PluginInterface
