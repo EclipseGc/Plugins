@@ -29,6 +29,7 @@ class PluginDefinitionSet implements \Iterator, \Countable {
    * PluginDefinitionSet constructor.
    *
    * @param \EclipseGc\Plugin\PluginDefinitionInterface[] $definitions
+   *   An array of plugin definitions to initially populate the set.
    */
   public function __construct(PluginDefinitionInterface ...$definitions) {
     foreach ($definitions as $definition) {
