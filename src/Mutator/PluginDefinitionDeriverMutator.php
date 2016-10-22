@@ -28,6 +28,7 @@ class PluginDefinitionDeriverMutator implements PluginDefinitionMutatorInterface
    * PluginDefinitionDeriverMutator constructor.
    *
    * @param \EclipseGc\Plugin\Derivative\PluginDeriverResolverInterface $deriverResolver
+   *   The instantiated plugin deriver resolver.
    */
   public function __construct(PluginDeriverResolverInterface $deriverResolver) {
     $this->deriverResolver = $deriverResolver;
