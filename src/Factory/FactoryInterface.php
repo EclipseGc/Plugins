@@ -9,7 +9,6 @@ use EclipseGc\Plugin\PluginDefinitionInterface;
  */
 interface FactoryInterface {
 
-
   /**
    * Creates a new instance of a specific plugin.
    *
@@ -20,6 +19,7 @@ interface FactoryInterface {
    *   A variadic parameter which holds constructor parameters for the plugin.
    *
    * @return mixed
+   *   An instantiated plugin.
    */
   public function createInstance(PluginDefinitionInterface $definition, ...$constructors);
 
