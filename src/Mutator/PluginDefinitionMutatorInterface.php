@@ -24,6 +24,6 @@ interface PluginDefinitionMutatorInterface {
    * @return \EclipseGc\Plugin\PluginDefinitionInterface[]
    *   The mutated plugin definitions.
    */
-  public function mutate(PluginDefinitionInterface ...$definitions) : array ;
+  public function mutate(PluginDefinitionInterface ...$definitions) : array;
 
 }
