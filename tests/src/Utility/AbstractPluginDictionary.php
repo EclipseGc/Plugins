@@ -41,7 +41,7 @@ abstract class AbstractPluginDictionary implements PluginDictionaryInterface {
    * @param string $factoryClass
    */
   public function setFactoryClass(string $factoryClass) {
-    $this->factory_class = $factoryClass;
+    $this->factoryClass = $factoryClass;
   }
 
   /**

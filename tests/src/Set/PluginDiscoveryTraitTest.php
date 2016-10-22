@@ -59,7 +59,7 @@ class PluginDiscoveryTraitTest extends \PHPUnit_Framework_TestCase {
     $discovery->setDiscovery(new PluginDiscovery($this->definition_data));
     $reflection = new \ReflectionClass($discovery);
     // Set plugin type.
-    $property = $reflection->getProperty('plugin_type');
+    $property = $reflection->getProperty('pluginType');
     $property->setAccessible(TRUE);
     $property->setValue($discovery, 'test_plugin_type');
 
