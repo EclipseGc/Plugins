@@ -1,11 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \EclipseGc\Plugin\Traits\PluginDiscoveryTrait.
- */
-
 namespace EclipseGc\Plugin\Traits;
+
 use EclipseGc\Plugin\Discovery\PluginDefinitionSet;
 use EclipseGc\Plugin\Factory\FactoryInterface;
 use EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface;
@@ -13,9 +9,10 @@ use EclipseGc\Plugin\PluginDefinitionInterface;
 use EclipseGc\Plugin\PluginInterface;
 
 /**
+ * A trait which implements all the methods of the PluginDiscoveryInterface.
+ *
  * @see \EclipseGc\Plugin\Discovery\PluginDiscoveryInterface;
  */
-
 trait PluginDictionaryTrait {
 
   /**
@@ -23,7 +20,7 @@ trait PluginDictionaryTrait {
    *
    * @var string
    */
-  protected $plugin_type;
+  protected $pluginType;
 
   /**
    * The discovery object to use for this dictionary.
@@ -51,7 +48,7 @@ trait PluginDictionaryTrait {
    *
    * @var string
    */
-  protected $factory_class;
+  protected $factoryClass;
 
   /**
    * The default plugin factory.
@@ -75,7 +72,7 @@ trait PluginDictionaryTrait {
    * {@inheritdoc}
    */
   public function getPluginType() : string {
-    return $this->plugin_type;
+    return $this->pluginType;
   }
 
   /**
@@ -133,24 +130,26 @@ trait PluginDictionaryTrait {
    *   The factory class string from the plugin definition.
    *
    * @return \EclipseGc\Plugin\Factory\FactoryInterface
+   *   The instantiated factory.
    */
   protected function resolveFactory(string $factory_class = NULL) : FactoryInterface {
     // If the plugin specified a factory.
     if ($factory_class) {
       // See if its the default factory and instantiate if appropriate.
-      if (empty($this->factory) && $this->factory_class == $factory_class) {
-        $this->factory = $this->factoryResolver->getFactoryInstance($this->factory_class);
+      if (empty($this->factory) && $this->factoryClass == $factory_class) {
+        $this->factory = $this->factoryResolver->getFactoryInstance($this->factoryClass);
       }
       // If the factory is specific to the plugin, instantiate and return.
-      if ($this->factory_class != $factory_class) {
+      if ($this->factoryClass != $factory_class) {
         return $this->factoryResolver->getFactoryInstance($factory_class);
       }
     }
     // If the plugin didn't pass a factory and the default's not instantiated.
     elseif (empty($this->factory)) {
-      $this->factory = $this->factoryResolver->getFactoryInstance($this->factory_class);
+      $this->factory = $this->factoryResolver->getFactoryInstance($this->factoryClass);
     }
     // Return the default factory.
     return $this->factory;
   }
+
 }
