@@ -15,7 +15,7 @@ interface FactoryInterface {
    * @param \EclipseGc\Plugin\PluginDefinitionInterface $definition
    *   The plugin definition of the plugin to instantiate.
    *
-   * @param array ...$constructors
+   * @param ...$constructors
    *   A variadic parameter which holds constructor parameters for the plugin.
    *
    * @return mixed
