@@ -24,4 +24,5 @@ interface FactoryResolverInterface {
    *   The instantiated factory class.
    */
   public function getFactoryInstance(string $factoryClass) : FactoryInterface;
+
 }
