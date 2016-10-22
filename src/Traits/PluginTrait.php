@@ -1,24 +1,24 @@
 <?php
 
-/**
- * @file
- * Contains \EclipseGc\Plugin\Traits\PluginTrait.
- */
-
 namespace EclipseGc\Plugin\Traits;
+
 use EclipseGc\Plugin\PluginDefinitionInterface;
 
 /**
- * Implementation of \EclipseGc\Plugin\PluginInterface
+ * A trait that implements the methods of \EclipseGc\Plugin\PluginInterface.
  */
 trait PluginTrait {
 
   /**
+   * The plugin definition.
+   *
    * @var \EclipseGc\Plugin\PluginDefinitionInterface
    */
   protected $definition;
 
   /**
+   * Implementations \EclipseGc\Plugin\PluginInterface::getPluginId().
+   *
    * @see \EclipseGc\Plugin\PluginInterface::getPluginId()
    */
   public function getPluginId() : string {
@@ -26,6 +26,8 @@ trait PluginTrait {
   }
 
   /**
+   * Implementations \EclipseGc\Plugin\PluginInterface::getPluginDefinition().
+   *
    * @see \EclipseGc\Plugin\PluginInterface::getPluginDefinition()
    */
   public function getPluginDefinition() : PluginDefinitionInterface {
