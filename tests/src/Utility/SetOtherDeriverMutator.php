@@ -15,7 +15,6 @@ class SetOtherDeriverMutator implements PluginDefinitionMutatorInterface {
 
   public function mutate(PluginDefinitionInterface ...$definitions): array {
     foreach ($definitions as $definition) {
-      print_r($definition->getPluginId());
       if ($definition->getPluginId() == 'plugin_definition_3') {
         /** @var PluginDefinitionDerivativeInterface $definition */
         $definition->setDeriver('\EclipseGc\Plugin\Test\Utility\OtherTestDeriver');
