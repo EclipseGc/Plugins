@@ -22,4 +22,12 @@ interface PluginDefinitionDerivativeInterface extends PluginDefinitionInterface 
    */
   public function getDeriver() : string;
 
+  /**
+   * Set the deriver to be used for a plugin definition.
+   *
+   * @param string $deriver
+   *   The string representing the plugin deriver to be used.
+   */
+  public function setDeriver(string $deriver);
+
 }

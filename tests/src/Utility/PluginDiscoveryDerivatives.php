@@ -40,9 +40,16 @@ class PluginDiscoveryDerivatives extends \PHPUnit_Framework_TestCase implements 
     ];
     foreach ($definition_data as $key => $item) {
       if ($key == 'plugin_definition_3') {
-        $definition = $this->createMock('\EclipseGc\Plugin\Derivative\PluginDefinitionDerivativeInterface');
-        $definition->method('getDeriver')
-          ->willReturn('\EclipseGc\Plugin\Test\Utility\TestDeriver');
+        $definition = $this->getMockForAbstractClass('\EclipseGc\Plugin\Test\Utility\AbstractPluginDefinitionDerivative');
+        $definition->method('getPluginId')
+          ->willReturn($key);
+        $definition->method('getProperties')
+          ->willReturn($item);
+        $definition->method('getProperty')
+          ->withConsecutive(['key_1'], ['key_2'], ['key_3'])
+          ->willReturnOnConsecutiveCalls($item['key_1'], $item['key_2'], $item['key_3']);
+        $definition->setDeriver('\EclipseGc\Plugin\Test\Utility\TestDeriver');
+        $definitions[] = $definition;
       }
       else {
         $definition = $this->createMock('\EclipseGc\Plugin\PluginDefinitionInterface');
