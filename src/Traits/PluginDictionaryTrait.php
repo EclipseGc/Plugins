@@ -119,6 +119,9 @@ trait PluginDictionaryTrait {
   public function createInstance(string $pluginId, ...$constructors) : PluginInterface {
     $definition = $this->getDefinition($pluginId);
     $factory_class = $definition->getFactory();
+    if (!$factory_class) {
+      $factory_class = $this->factoryClass;
+    }
     $factory = $this->resolveFactory($factory_class);
     return $factory->createInstance($definition, ...$constructors);
   }
@@ -132,24 +135,20 @@ trait PluginDictionaryTrait {
    * @return \EclipseGc\Plugin\Factory\FactoryInterface
    *   The instantiated factory.
    */
-  protected function resolveFactory(string $factory_class = NULL) : FactoryInterface {
-    // If the plugin specified a factory.
-    if ($factory_class) {
-      // See if its the default factory and instantiate if appropriate.
-      if (empty($this->factory) && $this->factoryClass == $factory_class) {
+  protected function resolveFactory(string $factory_class) : FactoryInterface {
+    // If the requested factory is the default.
+    if ($this->factoryClass == $factory_class) {
+      // If we've not yet instantiated the default.
+      if (empty($this->factory)) {
         $this->factory = $this->factoryResolver->getFactoryInstance($this->factoryClass);
       }
-      // If the factory is specific to the plugin, instantiate and return.
-      if ($this->factoryClass != $factory_class) {
-        return $this->factoryResolver->getFactoryInstance($factory_class);
-      }
+      // Return the default.
+      return $this->factory;
     }
-    // If the plugin didn't pass a factory and the default's not instantiated.
-    elseif (empty($this->factory)) {
-      $this->factory = $this->factoryResolver->getFactoryInstance($this->factoryClass);
+    // If the requested factory is NOT the default.
+    else {
+      return $this->factoryResolver->getFactoryInstance($factory_class);
     }
-    // Return the default factory.
-    return $this->factory;
   }
 
 }
