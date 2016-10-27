@@ -146,9 +146,7 @@ trait PluginDictionaryTrait {
       return $this->factory;
     }
     // If the requested factory is NOT the default.
-    else {
-      return $this->factoryResolver->getFactoryInstance($factory_class);
-    }
+    return $this->factoryResolver->getFactoryInstance($factory_class);
   }
 
 }
