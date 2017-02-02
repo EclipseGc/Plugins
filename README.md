@@ -11,7 +11,7 @@ This library provides a set of tools designed to:
 * Assembly of those objects into a common dictionary
 * Facilitate common factory patterns for objects in the dictionary
 
-The plugins library is designed to provide a simple patterns for allowing developers to create their own pluggable systems. This can be as simple as choosing a single plugin from a library during your run time, or executing multiple plugins from a library to do things like determine visibility, or build components of a page.
+The plugins library is designed to provide a simple pattern for allowing developers to create their own pluggable systems. This can be as simple as choosing a single plugin from a library during your run time, or executing multiple plugins from a library to do things like determine visibility, or build components of a page.
 
 ## History & Mission
 
