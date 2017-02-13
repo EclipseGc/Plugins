@@ -69,6 +69,13 @@ trait PluginDictionaryTrait {
   protected $factoryResolver;
 
   /**
+   * The cache backend object.
+   *
+   * @var \EclipseGc\Plugin\Cache\CacheInterface
+   */
+  protected $cache;
+
+  /**
    * {@inheritdoc}
    */
   public function getPluginType() : string {
@@ -79,12 +86,19 @@ trait PluginDictionaryTrait {
    * {@inheritdoc}
    */
   public function getDefinitions() : PluginDefinitionSet {
+    if (is_null($this->set) && $this->cache) {
+      $values = $this->cache->get();
+      $this->set = $values->count() ? $values : NULL;
+    }
     if (is_null($this->set) && !is_null($this->discovery)) {
       $set = $this->discovery->findPluginImplementations();
       foreach ($this->mutators as $mutator) {
         $set->applyMutator($mutator);
       }
       $this->set = $set;
+      if ($this->cache) {
+        $this->cache->set($set);
+      }
     }
     return $this->set;
   }
@@ -147,6 +161,15 @@ trait PluginDictionaryTrait {
     }
     // If the requested factory is NOT the default.
     return $this->factoryResolver->getFactoryInstance($factory_class);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function invalidateCache() {
+    if ($this->cache) {
+      $this->cache->invalidate();
+    }
   }
 
 }

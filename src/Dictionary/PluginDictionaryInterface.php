@@ -53,7 +53,7 @@ interface PluginDictionaryInterface {
   /**
    * Generates a new discovery object with a filtered list of definitions.
    *
-   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface ...$filters
+   * @param \EclipseGc\Plugin\Filter\PluginDefinitionFilterInterface[] ...$filters
    *   The list of filters to apply in order of application.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
@@ -67,12 +67,17 @@ interface PluginDictionaryInterface {
    * @param string $pluginId
    *   The plugin id.
    *
-   * @param ...$constructors
+   * @param array ...$constructors
    *   A variadic parameter for plugin constructor parameters.
    *
    * @return \EclipseGc\Plugin\PluginInterface
    *   A fully instantiated plugin.
    */
   public function createInstance(string $pluginId, ...$constructors) : PluginInterface;
+
+  /**
+   * Invalidate all cached plugin definitions for this dictionary.
+   */
+  public function invalidateCache();
 
 }

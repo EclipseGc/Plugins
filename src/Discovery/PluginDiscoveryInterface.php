@@ -24,7 +24,7 @@ interface PluginDiscoveryInterface {
    * discovery class is different and will have different parameters for
    * finding plugins.
    *
-   * @param \EclipseGc\Plugin\PluginDefinitionInterface ...$definitions
+   * @param \EclipseGc\Plugin\PluginDefinitionInterface[] ...$definitions
    *   A list of known definitions to add to the set.
    *
    * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
