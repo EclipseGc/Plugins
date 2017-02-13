@@ -34,25 +34,9 @@ class StaticPluginDictionary implements StaticPluginDictionaryInterface {
 
   /**
    * {@inheritdoc}
-   *
-   * Overridden to pass $this->definitions to the discovery object.
    */
-  public function getDefinitions() : PluginDefinitionSet {
-    if (is_null($this->set) && $this->cache) {
-      $values = $this->cache->get();
-      $this->set = $values->count() ? $values : NULL;
-    }
-    if (is_null($this->set) && !is_null($this->discovery)) {
-      $set = $this->discovery->findPluginImplementations(...$this->definitions);
-      foreach ($this->mutators as $mutator) {
-        $set->applyMutator($mutator);
-      }
-      $this->set = $set;
-      if ($this->cache) {
-        $this->cache->set($set);
-      }
-    }
-    return $this->set;
+  protected function getInitialSet() {
+    return $this->discovery->findPluginImplementations(...$this->definitions);
   }
 
 }

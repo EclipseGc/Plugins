@@ -83,6 +83,16 @@ trait PluginDictionaryTrait {
   }
 
   /**
+   * Allow individual plugin dictionaries to customize getting the initial set.
+   *
+   * @return \EclipseGc\Plugin\Discovery\PluginDefinitionSet
+   *   The initial set of plugin definitions.
+   */
+  protected function getInitialSet() : PluginDefinitionSet {
+    return $this->discovery->findPluginImplementations();
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDefinitions() : PluginDefinitionSet {
@@ -91,7 +101,7 @@ trait PluginDictionaryTrait {
       $this->set = $values->count() ? $values : NULL;
     }
     if (is_null($this->set) && !is_null($this->discovery)) {
-      $set = $this->discovery->findPluginImplementations();
+      $set = $this->getInitialSet();
       foreach ($this->mutators as $mutator) {
         $set->applyMutator($mutator);
       }
