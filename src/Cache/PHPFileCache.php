@@ -16,7 +16,6 @@ class PHPFileCache implements CacheInterface {
    */
   protected $fileName;
 
-
   /**
    * PHPFileCache constructor.
    *
@@ -79,7 +78,7 @@ EOT;
   },\n";
     }
     $contents .= "];\n";
-    $contents.= "return new PluginDefinitionSet(...\$plugins);";
+    $contents .= "return new PluginDefinitionSet(...\$plugins);";
     file_put_contents($this->fileName, $contents);
   }
 
