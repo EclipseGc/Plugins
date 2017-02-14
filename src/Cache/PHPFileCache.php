@@ -55,20 +55,21 @@ use EclipseGc\Plugin\Traits\PluginDefinitionTrait;
 EOT;
 
     foreach ($set as $pluginDefinition) {
-      $pluginDefinitionClass = class_exists(get_class($pluginDefinition)) ? get_class($pluginDefinition) : '';
+      $pluginDefinitionClass = get_class($pluginDefinition);
       $properties = '[';
       foreach ($pluginDefinition->getProperties() as $property_key => $property_value) {
         $properties .= "'$property_key' => '$property_value',";
       }
+      if (strpos($pluginDefinitionClass, 'class@anonymous') !== 0) {
+        $properties .= "'class' => '{$pluginDefinition->getClass()}',";
+        $properties .= "'factory' => '{$pluginDefinition->getFactory()}'";
+      }
       $properties .= ']';
-      if ($pluginDefinitionClass) {
+      if (strpos($pluginDefinitionClass, 'class@anonymous') === 0) {
         $contents .= "  new class('{$pluginDefinition->getClass()}', '{$pluginDefinition->getFactory()}', $properties) implements PluginDefinitionInterface {
-    use PluginDefinitionTrait;\n\n";
-      }
-      else {
-        $contents .= "  new class('{$pluginDefinition->getClass()}', '{$pluginDefinition->getFactory()}', $properties) extends $pluginDefinitionClass {\n\n";
-      }
-      $contents .= "    public function __construct(string \$class, string \$factory, array \$values) {
+    use PluginDefinitionTrait;
+
+    public function __construct(string \$class, string \$factory, array \$values) {
       \$this->class = \$class;
       \$this->factory = \$factory;
       foreach (\$values as \$key => \$value) {
@@ -76,6 +77,10 @@ EOT;
       }
     }
   },\n";
+      }
+      else {
+        $contents .= "  new $pluginDefinitionClass($properties);\n";
+      }
     }
     $contents .= "];\n";
     $contents .= "return new PluginDefinitionSet(...\$plugins);";

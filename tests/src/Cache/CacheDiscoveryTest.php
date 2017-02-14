@@ -68,12 +68,39 @@ return new PluginDefinitionSet(...\$plugins);";
   }
 
   protected function getPluginDefinition($foo, $bar) {
-    /** @var PluginDefinitionInterface $definition */
-    $definition = $this->prophesize(PluginDefinitionInterface::class);
-    $definition->getClass()->willReturn('Foo');
-    $definition->getFactory()->willReturn('');
-    $definition->getPluginId()->willReturn($foo);
-    $definition->getProperties()->willReturn(['pluginId' => $foo, 'foo' => $foo, 'bar' => $bar]);
-    return $definition->reveal();
+    return new class($foo, $bar) implements PluginDefinitionInterface {
+
+      protected $foo;
+      protected $bar;
+
+      /**
+       *  constructor.
+       */
+      public function __construct(string $foo, string $bar) {
+        $this->foo = $foo;
+        $this->bar = $bar;
+      }
+
+      public function getProperties(): array {
+        return ['pluginId' => $this->foo, 'foo' => $this->foo, 'bar' => $this->bar];
+      }
+
+      public function getProperty($name) {
+        return;
+      }
+
+      public function getPluginId(): string {
+        return $this->foo;
+      }
+
+      public function getClass(): string {
+        return 'Foo';
+      }
+
+      public function getFactory(): string {
+        return '';
+      }
+
+    };
   }
 }
